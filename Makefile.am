@@ -30,6 +30,10 @@ CLEANFILES += *.tap
 
 SUBDIRS = lib
 
+EXTRA_DIST =
+STAMPS =
+LOCAL_CLEAN =
+
 # libwarc shared library
 lib_LTLIBRARIES = libwarc.la
 libwarc_la_SOURCES = src/libwarc_main.c
@@ -71,3 +75,27 @@ EXTRA_DIST += $(top_srcdir)/GNUmakefile \
 distclean-local: clean-GNUmakefile
 clean-GNUmakefile:
 	test '$(srcdir)' = . || rm -f $(top_builddir)/GNUmakefile
+
+# Documentation generation using doxygen
+if HAVE_DOXYGEN
+
+man3_MANS = $(builddir)/docs/man/man3/libwarc_main.c.3
+
+$(man3_MANS): libwarc.stamp
+
+libwarc.stamp:
+	$(DOXYGEN) $(builddir)/docs/Doxyfile
+	echo > libwarc.stamp
+
+EXTRA_DIST += $(man3_MANS)
+STAMPS += libwarc.stamp
+LOCAL_CLEAN += $(builddir)/docs/html\
+	$(builddir)/docs/man
+
+CLEANFILES += $(STAMPS)
+
+all-local: $(STAMPS)
+clean-local:
+	rm -rf $(LOCAL_CLEAN)
+
+endif

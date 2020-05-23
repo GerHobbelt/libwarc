@@ -43,3 +43,11 @@ lib/*
 !lib/*.am
 
 gnulib/
+
+# Ignore doxygen generation documentation and files
+docs/*
+!docs/*.in
+*.stamp
+
+examples/*
+!examples/*.c

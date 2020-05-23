@@ -52,13 +52,19 @@ if test x"$enable_tests" != x"no"; then
     PKG_CHECK_MODULES([CHECK], [check >= 0.10.0])
 fi
 AM_CONDITIONAL([ENABLE_TESTS], [test x"$enable_tests" != "xno"])
+AC_CHECK_PROGS([DOXYGEN], [doxygen])
+AC_CHECK_PROGS([DOT], [dot])
+AS_IF([test -z "$DOXYGEN"], [AC_MSG_WARN([Doxygen not found - continuing without Doxygen support])])
 
 dnl Option to disable building examples
 AC_ARG_ENABLE([examples],
     AS_HELP_STRING([--disable-examples], [Disable building examples]))
 AM_CONDITIONAL([EXAMPLES], [test "x$enable_examples" != "xno"])
 
+AM_CONDITIONAL([HAVE_DOXYGEN],[test -n "$DOXYGEN" && test -n "$DOT"])
+
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile lib/Makefile])
+AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([docs/Doxyfile])])
 
 AC_OUTPUT

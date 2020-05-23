@@ -20,7 +20,7 @@
 /*
  * Header file for libwarc library routines
  */
-
+/// \file
 
 #ifndef LIBWARC_LIBWARC_H
 #define LIBWARC_LIBWARC_H

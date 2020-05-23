@@ -21,6 +21,18 @@
 
 #include "libwarc.h"
 
+/// \file
+
+
+/**
+ * \param[in] n Input value
+ * \return Double the \p n
+ * 
+ * \brief The Example Function.
+ *
+ * Basic function for demonstrating testing and documentation.
+ */
+
 int print_hw(int n)
 {
     return 2*n;

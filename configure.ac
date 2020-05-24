@@ -31,7 +31,7 @@ AC_CONFIG_SRCDIR([src/libwarc_main.c])
 AC_CONFIG_AUX_DIR([build-aux])
 
 dnl Initialize Automake
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE([subdir-objects gnu check-news])
 
 AC_PROG_CC
 AC_CONFIG_MACRO_DIRS([m4])

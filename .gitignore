@@ -1,3 +1,4 @@
+/build-aux
 # General
 *.log
 
@@ -35,3 +36,10 @@ stamp-h1
 
 # Ignore TAP files
 *.tap
+/GNUmakefile
+/maint.mk
+
+lib/*
+!lib/*.am
+
+gnulib/

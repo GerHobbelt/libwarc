@@ -34,6 +34,10 @@ dnl Initialize Automake
 AM_INIT_AUTOMAKE([subdir-objects])
 
 AC_PROG_CC
+
+gl_EARLY
+gl_INIT
+
 AC_CONFIG_MACRO_DIRS([m4])
 
 dnl Initialize libtool
@@ -49,7 +53,20 @@ AC_ARG_ENABLE([examples],
     AS_HELP_STRING([--disable-examples], [Disable building examples]))
 AM_CONDITIONAL([EXAMPLES], [test "x$enable_examples" != "xno"])
 
+dnl For supporting gnumakefile module from gnulib
+GNUmakefile=GNUmakefile
+
+AC_DEFINE([GL_COMPILE_CRYPTO_STREAM], 1, [Compile Gnulib crypto stream ops.])
+
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile])
+
+dnl For non recursive make:
+dnl AC_CONFIG_COMMANDS_PRE([
+  dnl Note we can't currently pass $gl_source_base instead of 'lib',
+  dnl because $gl_source_base is unset or the wrong value in the references
+  dnl generated in m4/non-recursive-gnulib-prefix-hack.m4
+dnl   gl_NON_RECURSIVE_GNULIB_PREFIX_HACK([lib])
+dnl   ])
 
 AC_OUTPUT

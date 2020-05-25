@@ -1,0 +1,13 @@
+stages:
+        - pre-checks
+        - build
+        - test
+
+syntax-check:
+        image: gcc
+        stage: pre-checks
+        before_script:
+                - ./bootstrap
+                - ./configure
+        script:
+                - make syntax-check

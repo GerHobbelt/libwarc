@@ -51,6 +51,13 @@ tests_printhwtest_SOURCES = tests/test.c
 tests_printhwtest_CFLAGS = $(AM_CFLAGS) $(CHECK_CFLAGS)
 tests_printhwtest_LDADD = libwarc.la $(CHECK_LIBS)
 
+dist-hook: gen-ChangeLog
+
+gen-ChangeLog:
+	$(top_srcdir)/build-aux/gitlog-to-changelog > $(distdir)/cl-t \
+		&& { rm -f $(distdir)/ChangeLog && \
+		     mv $(distdir)/cl-t $(distdir)/ChangeLog; }
+
 ###
 # GnuLib Support
 ###

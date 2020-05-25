@@ -8,6 +8,6 @@ syntax-check:
         stage: pre-checks
         before_script:
                 - ./bootstrap
-                - ./configure
+                - ./configure --disable-tests
         script:
                 - make syntax-check

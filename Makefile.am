@@ -48,8 +48,8 @@ endif
 TESTS = tests/printhwtest
 check_PROGRAMS = tests/printhwtest
 tests_printhwtest_SOURCES = tests/test.c
-tests_printhwtest_CFLAGS = $(AM_CFLAGS) @CHECK_CFLAGS@
-tests_printhwtest_LDADD = libwarc.la @CHECK_LIBS@
+tests_printhwtest_CFLAGS = $(AM_CFLAGS) $(CHECK_CFLAGS)
+tests_printhwtest_LDADD = libwarc.la $(CHECK_LIBS)
 
 ###
 # GnuLib Support

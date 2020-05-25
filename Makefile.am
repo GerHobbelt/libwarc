@@ -61,4 +61,4 @@ EXTRA_DIST += $(top_srcdir)/GNUmakefile \
 
 distclean-local: clean-GNUmakefile
 clean-GNUmakefile:
-	test '$(srcdir)' = . || rm -f $(top_srcdir)/GNUmakefile
+	test '$(srcdir)' = . || rm -f $(top_builddir)/GNUmakefile

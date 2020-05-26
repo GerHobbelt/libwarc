@@ -45,7 +45,13 @@ AC_PROG_SED
 AC_PROG_MKDIR_P
 
 gl_INIT
-PKG_CHECK_MODULES([CHECK], [check >= 0.10.0])
+AC_ARG_ENABLE([tests],
+    AS_HELP_STRING([--disable-tests], [Disable running the tests]))
+
+if test x"$enable_tests" != x"no"; then
+    PKG_CHECK_MODULES([CHECK], [check >= 0.10.0])
+fi
+AM_CONDITIONAL([ENABLE_TESTS], [test x"$enable_tests" != "xno"])
 
 dnl Option to disable building examples
 AC_ARG_ENABLE([examples],

@@ -45,11 +45,13 @@ if EXAMPLES
     examples_hello_LDADD = libwarc.la
 endif
 
+if ENABLE_TESTS
 TESTS = tests/printhwtest
 check_PROGRAMS = tests/printhwtest
 tests_printhwtest_SOURCES = tests/test.c
 tests_printhwtest_CFLAGS = $(AM_CFLAGS) $(CHECK_CFLAGS)
 tests_printhwtest_LDADD = libwarc.la $(CHECK_LIBS)
+endif
 
 dist-hook: gen-ChangeLog
 

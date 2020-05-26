@@ -19,7 +19,7 @@ git clone https://gitlab.com/suhasks123/libwarc.git
 
 cd libwarc
 
-autoreconf -i
+./bootstrap
 
 mkdir build
 

@@ -1,3 +1,4 @@
+/build-aux
 # General
 *.log
 
@@ -6,7 +7,7 @@ build/
 # Ignore autotools generated files
 m4
 autom4te.cache
-build-aux
+build-aux/
 */.deps
 */.libs
 .libs
@@ -35,3 +36,10 @@ stamp-h1
 
 # Ignore TAP files
 *.tap
+/GNUmakefile
+/maint.mk
+
+lib/*
+!lib/*.am
+
+gnulib/

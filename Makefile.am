@@ -13,15 +13,27 @@
 # You should have received a copy of the GNU General Public License
 # along with libwarc.  If not, see <https://www.gnu.org/licenses/>.
 
-# Basic Setup: Set m4 as libtool configuration file directory
-ACLOCAL_AMFLAGS= -I m4
+EXTRA_DIST =
+CLEANFILES =
+DISTCLEANFILES =
+MAINTAINERCLEANFILES =
+
+# For non recursive make: include $(top_builddir)/lib/gnulib.mk
+
+ACLOCAL_AMFLAGS = -I m4
+AM_CPPFLAGS = \
+    -I$(top_builddir)/lib\
+    -I$(top_srcdir)/lib\
+    -I$(top_srcdir)/include
 include_HEADERS = include/libwarc.h
-CLEANFILES = *.tap
+CLEANFILES += *.tap
+
+SUBDIRS = lib
 
 # libwarc shared library
 lib_LTLIBRARIES = libwarc.la
 libwarc_la_SOURCES = src/libwarc_main.c
-libwarc_la_CPPFLAGS = -I$(top_srcdir)/include
+libwarc_la_LIBADD = lib/libgnu.la
 
 if EXAMPLES
 # Examples
@@ -30,13 +42,30 @@ if EXAMPLES
 
     # Example generated from the shared library
     examples_hello_SOURCES = examples/main.c
-    examples_hello_CPPFLAGS = -I$(top_srcdir)/include
     examples_hello_LDADD = libwarc.la
 endif
 
 TESTS = tests/printhwtest
 check_PROGRAMS = tests/printhwtest
 tests_printhwtest_SOURCES = tests/test.c
-tests_printhwtest_CPPFLAGS = -I$(top_srcdir)/include
-tests_printhwtest_CFLAGS = @CHECK_CFLAGS@
-tests_printhwtest_LDADD = libwarc.la @CHECK_LIBS@
+tests_printhwtest_CFLAGS = $(AM_CFLAGS) $(CHECK_CFLAGS)
+tests_printhwtest_LDADD = libwarc.la $(CHECK_LIBS)
+
+dist-hook: gen-ChangeLog
+
+gen-ChangeLog:
+	$(top_srcdir)/build-aux/gitlog-to-changelog > $(distdir)/cl-t \
+		&& { rm -f $(distdir)/ChangeLog && \
+		     mv $(distdir)/cl-t $(distdir)/ChangeLog; }
+
+###
+# GnuLib Support
+###
+
+EXTRA_DIST += $(top_srcdir)/GNUmakefile \
+	      $(top_srcdir)/maint.mk \
+	      $(top_srcdir)/m4/gnulib-cache.m4
+
+distclean-local: clean-GNUmakefile
+clean-GNUmakefile:
+	test '$(srcdir)' = . || rm -f $(top_builddir)/GNUmakefile

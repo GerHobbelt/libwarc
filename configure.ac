@@ -33,7 +33,9 @@ AC_CONFIG_AUX_DIR([build-aux])
 dnl Initialize Automake
 AM_INIT_AUTOMAKE([subdir-objects gnu check-news])
 
-AC_PROG_CC
+AC_PROG_CC_C99
+gl_EARLY
+
 AC_CONFIG_MACRO_DIRS([m4])
 
 dnl Initialize libtool
@@ -42,6 +44,7 @@ LT_INIT()
 AC_PROG_SED
 AC_PROG_MKDIR_P
 
+gl_INIT
 PKG_CHECK_MODULES([CHECK], [check >= 0.10.0])
 
 dnl Option to disable building examples
@@ -50,6 +53,6 @@ AC_ARG_ENABLE([examples],
 AM_CONDITIONAL([EXAMPLES], [test "x$enable_examples" != "xno"])
 
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile])
 
 AC_OUTPUT

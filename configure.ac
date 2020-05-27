@@ -34,6 +34,13 @@ dnl Initialize Automake
 AM_INIT_AUTOMAKE([subdir-objects gnu check-news])
 
 AC_PROG_CC_C99
+if test x"$ac_cv_prog_cc_c99" = x"no"; then
+	AC_MSG_ERROR([LibWARC needs a C99 compatble compiler. Aborting.])
+fi
+
+AC_CANONICAL_BUILD
+AC_CANONICAL_HOST
+
 gl_EARLY
 
 AC_CONFIG_MACRO_DIRS([m4])
@@ -46,7 +53,9 @@ AC_PROG_MKDIR_P
 
 gl_INIT
 AC_ARG_ENABLE([tests],
-    AS_HELP_STRING([--disable-tests], [Disable running the tests]))
+    AS_HELP_STRING([--disable-tests], [Disable running the tests]),
+    ,
+    enable_tests="yes")
 
 if test x"$enable_tests" != x"no"; then
     PKG_CHECK_MODULES([CHECK], [check >= 0.10.0])
@@ -58,7 +67,9 @@ AS_IF([test -z "$DOXYGEN"], [AC_MSG_WARN([Doxygen not found - continuing without
 
 dnl Option to disable building examples
 AC_ARG_ENABLE([examples],
-    AS_HELP_STRING([--disable-examples], [Disable building examples]))
+    AS_HELP_STRING([--disable-examples], [Disable building examples]),
+    ,
+    enable_examples="yes")
 AM_CONDITIONAL([EXAMPLES], [test "x$enable_examples" != "xno"])
 
 AM_CONDITIONAL([HAVE_DOXYGEN],[test -n "$DOXYGEN" && test -n "$DOT"])
@@ -68,3 +79,14 @@ AC_CONFIG_FILES([Makefile lib/Makefile])
 AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([docs/Doxyfile])])
 
 AC_OUTPUT
+
+AC_MSG_NOTICE([Configuring LibWARC ($build -- $host):
+  Version:               ${PACKAGE_VERSION}
+  Install Prefix:        ${prefix}
+  Compiler:              ${CC}
+  CFlags:                ${CPPFLAGS} ${CFLAGS}
+  LDFlags:               ${LDFLAGS}
+  Library Types:         Shared=${enable_shared}, static=${enable_static}
+  Tests:                 ${enable_tests}
+  Examples:              ${enable_examples}
+])

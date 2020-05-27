@@ -27,7 +27,7 @@
 /**
  * \param[in] n Input value
  * \return Double the \p n
- * 
+ *
  * \brief The Example Function.
  *
  * Basic function for demonstrating testing and documentation.

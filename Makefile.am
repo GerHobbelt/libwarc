@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with libwarc.  If not, see <https://www.gnu.org/licenses/>.
 
-EXTRA_DIST =
+EXTRA_DIST = ABI.ChangeLog
 CLEANFILES =
 
 # For non recursive make: include $(top_builddir)/lib/gnulib.mk

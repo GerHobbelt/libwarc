@@ -1,13 +1,16 @@
-LibWARC NEWS -- history of user-visible changes.
+LibWARC ABI ChangeLog -- history of ABI Changes
 
 Copyright (C) 2020 Free Software Foundation, Inc.
 See the end for copying conditions.
 
 Please send LibWARC bug reports to <wget-libwarc@gnu.org>.
 
-* Changes in LibWARC 0.0
+* Changes in LibWARC 0.1
 
-** Started the project as a Google Summer of Code project under GNU Wget
+** Added
+---> print_hw
+** Removed
+** Modified
 
 
 ----------------------------------------------------------------------

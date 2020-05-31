@@ -8,6 +8,7 @@ Please send LibWARC bug reports to <wget-libwarc@gnu.org>.
 * Changes in LibWARC 0.0
 
 ** Started the project as a Google Summer of Code project under GNU Wget
+** Add gnulib and doxygen support and set up the basic repository
 
 
 ----------------------------------------------------------------------

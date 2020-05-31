@@ -23,6 +23,7 @@ AM_CPPFLAGS = \
     -I$(top_builddir)/lib\
     -I$(top_srcdir)/lib\
     -I$(top_srcdir)/include
+AM_CFLAGS = $(CFLAG_VISIBILITY)
 include_HEADERS = include/libwarc.h
 CLEANFILES += *.tap
 
@@ -32,6 +33,7 @@ SUBDIRS = lib
 lib_LTLIBRARIES = libwarc.la
 libwarc_la_SOURCES = src/libwarc_main.c
 libwarc_la_LIBADD = lib/libgnu.la
+libwarc_la_CPPFLAGS = $(AM_CPPFLAGS) -DBUILDING_LIBWARC
 
 if EXAMPLES
 # Examples

@@ -25,6 +25,19 @@
 #ifndef LIBWARC_LIBWARC_H
 #define LIBWARC_LIBWARC_H
 
-int print_hw(int);
+
+// see https://www.gnu.org/software/gnulib/manual/html_node/Exported-Symbols-of-Shared-Libraries.html
+#if defined BUILDING_LIBWARC && HAVE_VISIBILITY
+#       define WARCAPI __attribute__ ((__visibility__("default")))
+#elif defined BUILDING_LIBWARC && defined _MSC_VER && !defined LIBWARC_STATIC
+#       define WARCAPI __declspec(dllexport)
+#elif defined _MSC_VER && !defined LIBWARC_STATIC
+#       define WARCAPI __declspec(dllimport)
+#else
+#       define WARCAPI
+#endif
+
+
+WARCAPI int print_hw(int);
 
 #endif /* LIBWARC_LIBWARC_H */

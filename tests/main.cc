@@ -203,7 +203,12 @@ TEST(WARCFile, iterator)
 	ASSERT_EQ(2, count);
 }
 
-int main(int argc, char **argv) {
+
+#if defined(BUILD_MONOLITHIC)
+#define main       warc_test_main
+#endif
+
+int main(int argc, const char **argv) {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }

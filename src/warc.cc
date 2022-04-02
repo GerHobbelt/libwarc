@@ -1,6 +1,9 @@
 #include <iostream>
 #include <algorithm>
 #include <cctype>
+#ifdef _MSC_VER
+#include <malloc.h>
+#endif
 
 #include "warc.hh"
 #include "constants.hh"
@@ -80,10 +83,18 @@ std::istream& operator>>(std::istream& is, WARCRecord& record)
 		// get the content length.
 		auto it = find(record.fields.begin(), record.fields.end(), CONTENT_LENGTH);
 		if (it != record.fields.end()){
-			auto length = stoul(it->value);
+			const auto length = stoul(it->value);
+			// https://stackoverflow.com/questions/5246900/enabling-vlas-variable-length-arrays-in-ms-visual-c
+			// https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/malloca?view=msvc-170
+#if 0
 			char buffer[length];
+#else
+			char *buffer = (char *)_malloca(length);
+#endif
 			if (is.read(buffer, length))
 				record.content = std::string(buffer, length);
+
+			_freea(buffer);
 		}
 		// skip CR and LF until next record;
 		is.ignore(4);

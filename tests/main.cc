@@ -7,6 +7,8 @@
 #include "warc.hh"
 #include "helper.hh"
 
+#include "monolithic_examples.h"
+
 using namespace warc;
 using namespace std;
 
